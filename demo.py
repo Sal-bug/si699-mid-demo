@@ -65,10 +65,10 @@ def get_efficient_frontier_bl(predicted_views, filtered_stocks):
 
 # Get corresponding predicted views from the file.
 def read_predicted_views(stock_codes):
-    filtered_stocks = pd.read_pickle('../data/filtered_stocks_daily.pickle')
+    filtered_stocks = pd.read_pickle('filtered_stocks_daily.pickle')
     filtered_ts_code = list(filtered_stocks.keys())
 
-    with open("../data/predictions.txt", "r") as f:
+    with open("predictions.txt", "r") as f:
         exp_rtn =  list(map(float, f.read().splitlines()))
     exp_rtn = [x * 252 for x in exp_rtn]
     
@@ -112,8 +112,8 @@ if __name__ == "__main__":
     freq = 252
 
     if len(stock_codes) > 0:
-        filtered_stocks = pd.read_pickle("../data/filtered_stocks_daily.pickle")
-        filtered_stocks_val = pd.read_pickle("../data/filtered_stocks_val.pickle")
+        filtered_stocks = pd.read_pickle("data/filtered_stocks_daily.pickle")
+        filtered_stocks_val = pd.read_pickle("data/filtered_stocks_val.pickle")
 
         for key in list(filtered_stocks.keys()): 
             if key not in stock_codes:
