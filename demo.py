@@ -112,8 +112,8 @@ if __name__ == "__main__":
     freq = 252
 
     if len(stock_codes) > 0:
-        filtered_stocks = pd.read_pickle("data/filtered_stocks_daily.pickle")
-        filtered_stocks_val = pd.read_pickle("data/filtered_stocks_val.pickle")
+        filtered_stocks = pd.read_pickle("filtered_stocks_daily.pickle")
+        filtered_stocks_val = pd.read_pickle("filtered_stocks_val.pickle")
 
         for key in list(filtered_stocks.keys()): 
             if key not in stock_codes:
