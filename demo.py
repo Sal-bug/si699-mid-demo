@@ -108,6 +108,8 @@ def demo_options():
 if __name__ == "__main__":
     stock_codes = demo_options()
 
+    col1, col2 = st.columns(2)
+
     rf = 0.02   # Should be determined by input 
     freq = 252
 
@@ -123,21 +125,27 @@ if __name__ == "__main__":
         prior_weight_dict1 = ef1.max_sharpe(risk_free_rate=rf)
         exp_rtn, ann_vol, sharpe_ratio = ef1.portfolio_performance(verbose=True, risk_free_rate=rf)
 
-        st.write("""Result without predicted views""")
-        st.write("Expected Annual Return: ", exp_rtn)
-        st.write("Annual Volatility: ", ann_vol)
-        st.write("Sharpe Ratio: ", sharpe_ratio)
-        st.write("Actual Annual Market Return", true_annual_return(prior_weight_dict1, filtered_stocks_val))
-        
+        with col1:
+            st.markdown("""**Result without predicted views**""")
+            for stock in prior_weight_dict1.keys():
+                st.write(stock, ": ", prior_weight_dict1[stock])
+            st.write("Expected Annual Return: ", exp_rtn)
+            st.write("Annual Volatility: ", ann_vol)
+            st.write("Sharpe Ratio: ", sharpe_ratio)
+            st.write("Actual Annual Market Return", true_annual_return(prior_weight_dict1, filtered_stocks_val))
+            
         predicted_views = read_predicted_views(filtered_stocks)
         post_weight_dict1, bl_performance = get_efficient_frontier_bl(predicted_views, filtered_stocks)
         exp_rtn_bl, ann_vol_bl, sharpe_ratio_bl = bl_performance
 
-        st.write("""Result updated by predicted views""")
-        st.write("Expected Annual Return: ", exp_rtn_bl)
-        st.write("Annual Volatility: ", ann_vol_bl)
-        st.write("Sharpe Ratio: ", sharpe_ratio_bl)
-        st.write("Actual Annual Market Return", true_annual_return(post_weight_dict1, filtered_stocks_val))
+        with col2:
+            st.markdown("""**Result updated by predicted views**""")
+            for stock in post_weight_dict1.keys():
+                st.write(stock, ": ", post_weight_dict1[stock])
+            st.write("Expected Annual Return: ", exp_rtn_bl)
+            st.write("Annual Volatility: ", ann_vol_bl)
+            st.write("Sharpe Ratio: ", sharpe_ratio_bl)
+            st.write("Actual Annual Market Return", true_annual_return(post_weight_dict1, filtered_stocks_val))
 
 
 
